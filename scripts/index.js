@@ -10,10 +10,10 @@ const addButton = document.querySelector(".profile__add-button");
 
 // @todo: Функция создания карточки
 
-function addCards(cardValue, titleValue, deleteCard) {
+function addCards(imgValue, titleValue, deleteCard) {
   const cardElement = cardTemplate.cloneNode(true);
 
-  cardElement.querySelector("img").src = cardValue;
+  cardElement.querySelector("img").src = imgValue;
   cardElement.querySelector(".card__title").textContent = titleValue;
 
   const deleteButton = cardElement.querySelector(".card__delete-button");
@@ -27,7 +27,7 @@ addButton.addEventListener("click", () => {
   const title = document.querySelector(".popup__input_type_card-name");
   const image = document.querySelector(".popup__input_type_url");
 
-  addCards(title.value, image.value);
+  addCards(title.value, image.value, deleteCard);
 
   title.value = "";
   image.value = "";
