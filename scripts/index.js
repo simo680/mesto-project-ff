@@ -10,8 +10,8 @@ const addButton = document.querySelector(".profile__add-button");
 
 // @todo: Функция создания карточки
 
-function addCards(imgValue, titleValue, deleteCard) {
-  const cardElement = cardTemplate.cloneNode(true);
+function createCard(imgValue, titleValue, deleteCard) {
+  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
   cardElement.querySelector("img").src = imgValue;
   cardElement.querySelector(".card__title").textContent = titleValue;
@@ -20,18 +20,20 @@ function addCards(imgValue, titleValue, deleteCard) {
 
   deleteButton.addEventListener("click", deleteCard);
 
-  placesList.append(cardElement);
+  return cardElement;
 }
 
-addButton.addEventListener("click", () => {
-  const title = document.querySelector(".popup__input_type_card-name");
-  const image = document.querySelector(".popup__input_type_url");
+// для 6 спринта сделал эту кнопочку
 
-  addCards(title.value, image.value, deleteCard);
+// addButton.addEventListener("click", () => {
+//   const title = document.querySelector(".popup__input_type_card-name");
+//   const image = document.querySelector(".popup__input_type_url");
 
-  title.value = "";
-  image.value = "";
-});
+//   createCard(title.value, image.value, deleteCard);
+
+//   title.value = "";
+//   image.value = "";
+// });
 
 // @todo: Функция удаления карточки
 
@@ -43,5 +45,6 @@ function deleteCard(event) {
 // @todo: Вывести карточки на страницу
 
 initialCards.forEach((elem) => {
-  addCards(elem.link, elem.name, deleteCard);
+  const cardElement = createCard(elem.link, elem.name, deleteCard);
+  placesList.append(cardElement);
 });
