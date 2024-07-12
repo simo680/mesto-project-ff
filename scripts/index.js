@@ -10,11 +10,14 @@ const addButton = document.querySelector(".profile__add-button");
 
 // @todo: Функция создания карточки
 
-function createCard(imgValue, titleValue, deleteCard) {
-  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+function createCard(data, deleteCard) {
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
 
-  cardElement.querySelector("img").src = imgValue;
-  cardElement.querySelector(".card__title").textContent = titleValue;
+  const cardImage = cardElement.querySelector("img");
+  const cardTitle = cardElement.querySelector(".card__title");
+  cardImage.src = data.link;
+  cardImage.alt = data.name;
+  cardTitle.textContent = data.name;
 
   const deleteButton = cardElement.querySelector(".card__delete-button");
 
@@ -44,7 +47,6 @@ function deleteCard(event) {
 
 // @todo: Вывести карточки на страницу
 
-initialCards.forEach((elem) => {
-  const cardElement = createCard(elem.link, elem.name, deleteCard);
-  placesList.append(cardElement);
+initialCards.forEach((data) => {
+  placesList.append(createCard(data, deleteCard));
 });
