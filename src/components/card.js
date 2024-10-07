@@ -1,23 +1,31 @@
 const cardTemplate = document.querySelector("#card-template").content;
 
-export function createCard(data, deleteCard, likeCard, OpenImage) {
+export function createCard(data, deleteCard, likeCard, openImage) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
 
   const cardImage = cardElement.querySelector(".card__image");
   const cardTitle = cardElement.querySelector(".card__title");
+
+  const likeBtn = cardElement.querySelector(".card__like-button");
+  const deleteBtn = cardElement.querySelector(".card__delete-button");
+
   cardImage.src = data.link;
   cardImage.alt = data.name;
   cardTitle.textContent = data.name;
 
-  const likeBtn = cardElement.querySelector(".card__like-button");
+  likeBtn.addEventListener("click", () => likeCard(likeBtn));
 
-  likeBtn.addEventListener("click", likeCard);
+  deleteBtn.addEventListener("click", () => deleteCard(cardElement));
 
-  const deleteBtn = cardElement.querySelector(".card__delete-button");
-
-  deleteBtn.addEventListener("click", deleteCard);
-
-  cardImage.addEventListener("click", OpenImage);
+  cardImage.addEventListener("click", openImage);
 
   return cardElement;
+}
+
+export function deleteCard(card) {
+  card.remove();
+}
+
+export function likeCard(button) {
+  button.classList.toggle("card__like-button_is-active");
 }
