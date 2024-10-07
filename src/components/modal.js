@@ -10,7 +10,7 @@ export function closeModal(elem) {
 
 export function closeOnEscape(evt) {
   if (evt.key === "Escape") {
-    closeModal(evt.target);
+    closeModal(document.querySelector(".popup_is-opened"));
   }
 }
 
