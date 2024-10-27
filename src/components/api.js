@@ -32,8 +32,8 @@ export const editUserInfo = (name, job) => {
     method: "PATCH",
     headers: config.headers,
     body: JSON.stringify({
-      name: `${name}`,
-      about: `${job}`,
+      name: name,
+      about: job,
     }),
   }).then(handleResponse);
 };
@@ -43,8 +43,8 @@ export const addCard = (name, link) => {
     method: "POST",
     headers: config.headers,
     body: JSON.stringify({
-      name: `${name}`,
-      link: `${link}`,
+      name: name,
+      link: link,
     }),
   }).then(handleResponse);
 };
@@ -75,7 +75,7 @@ export const updateAvatar = (avatar) => {
     method: "PATCH",
     headers: config.headers,
     body: JSON.stringify({
-      avatar: `${avatar}`,
+      avatar: avatar,
     }),
   }).then(handleResponse);
 };

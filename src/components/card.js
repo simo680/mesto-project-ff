@@ -24,11 +24,9 @@ export function createCard(
   cardTitle.textContent = data.name;
   likeCount.textContent = data.likes.length;
 
-  data.likes.forEach((elem) => {
-    if (elem._id === profileId) {
-      likeBtn.classList.add("card__like-button_is-active");
-    }
-  });
+  if (data.likes.some((elem) => elem._id === profileId)) {
+    likeBtn.classList.add("card__like-button_is-active");
+  }
 
   if (data.owner._id !== profileId) {
     deleteBtn.remove();
@@ -59,24 +57,17 @@ export function handleDeleteCard(cardElem, cardId) {
 
 export function handleLikeCard(event, cardId, likeCount) {
   const target = event.target;
-
+  
   if (target.classList.contains("card__like-button_is-active")) {
-    removeLikeCard(cardId)
+    const isLiked = target.classList.contains("card__like-button_is-active");
+    const likeMethod = isLiked ? removeLikeCard : checkLikeCard;
+    likeMethod(cardId)
       .then((data) => {
         likeCount.textContent = data.likes.length;
         target.classList.remove("card__like-button_is-active");
       })
-      .catch((err) => {
-        console.log(`Ошибка при удалении лайка: ${err}`);
-      });
-  } else {
-    checkLikeCard(cardId)
-      .then((data) => {
-        likeCount.textContent = data.likes.length;
-        target.classList.add("card__like-button_is-active");
-      })
-      .catch((err) => {
-        console.log(`Ошибка при добавлении лайка: ${err}`);
-      });
+      .catch((err) =>
+        console.log(`Ошибка при ${isLiked ? "удалении" : "добавлении"} лайка'`)
+      );
   }
 }

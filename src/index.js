@@ -60,11 +60,7 @@ const validationData = {
 };
 
 function renderLoading(isLoading, element) {
-  if (isLoading) {
-    element.textContent = "Сохранение...";
-  } else {
-    element.textContent = "Сохранить";
-  }
+  element.textContent = isLoading ? "Сохранение..." : "Сохранить";
 }
 
 function openCard(evt) {
@@ -82,11 +78,11 @@ function addCards(initialCards) {
   });
 }
 
-function renderUser(api) {
-  userNameElement.textContent = api.name;
-  userJobElement.textContent = api.about;
-  avatarElement.style.backgroundImage = `url(${api.avatar})`;
-  profileId = api._id;
+function renderUser(userData) {
+  userNameElement.textContent = userData.name;
+  userJobElement.textContent = userData.about;
+  avatarElement.style.backgroundImage = `url(${userData.avatar})`;
+  profileId = userData._id;
 }
 
 Promise.all([getUserInfo(), getInitialCards()])
@@ -111,9 +107,9 @@ function handleFormEditSubmit(evt) {
   renderLoading(true, formEditCardButton);
 
   editUserInfo(nameInput.value, jobInput.value)
-    .then((api) => {
-      userNameElement.textContent = api.name;
-      userJobElement.textContent = api.job;
+    .then((userData) => {
+      userNameElement.textContent = userData.name;
+      userJobElement.textContent = userData.job;
       closeModal(popupTypeEdit);
     })
     .catch((err) => {
@@ -190,13 +186,5 @@ profileEditBtn.addEventListener("click", handleProfileEditClick);
 formEditCard.addEventListener("submit", handleFormEditSubmit);
 
 formNewCard.addEventListener("submit", handleFormNewSubmit);
-
-getInitialCards()
-  .then((result) => {
-    addCards(result);
-  })
-  .catch((err) => {
-    console.log(`возникла ошибка: ${err}`);
-  });
 
 enableValidation(validationData);

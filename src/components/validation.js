@@ -43,12 +43,20 @@ export function hasInvalidInput(inputList) {
 }
 
 export function toggleButtonState(validationData, inputList, buttonElement) {
+  const disableSubmitButton = (button, config) => {
+    button.disabled = true;
+    button.classList.add(config.inactiveButtonClass);
+  };
+
+  const enableSubmitButton = (button, config) => {
+    button.disabled = false;
+    button.classList.remove(config.inactiveButtonClass);
+  };
+
   if (hasInvalidInput(inputList)) {
-    buttonElement.disabled = true;
-    buttonElement.classList.add(validationData.inactiveButtonClass);
+    disableSubmitButton(buttonElement, validationData);
   } else {
-    buttonElement.disabled = false;
-    buttonElement.classList.remove(validationData.inactiveButtonClass);
+    enableSubmitButton(buttonElement, validationData);
   }
 }
 
