@@ -97,6 +97,5 @@ export function clearValidation(formElement, validationData) {
     hideInputError(validationData, formElement, inputElement);
     inputElement.setCustomValidity("");
   });
-  buttonElement.disabled = true;
-  buttonElement.classList.add(validationData.inactiveButtonClass);
+  disableSubmitButton(buttonElement, validationData);
 }
