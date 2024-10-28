@@ -42,17 +42,16 @@ export function hasInvalidInput(inputList) {
   });
 }
 
+const disableSubmitButton = (button, config) => {
+  button.disabled = true;
+  button.classList.add(config.inactiveButtonClass);
+};
+const enableSubmitButton = (button, config) => {
+  button.disabled = false;
+  button.classList.remove(config.inactiveButtonClass);
+};
+
 export function toggleButtonState(validationData, inputList, buttonElement) {
-  const disableSubmitButton = (button, config) => {
-    button.disabled = true;
-    button.classList.add(config.inactiveButtonClass);
-  };
-
-  const enableSubmitButton = (button, config) => {
-    button.disabled = false;
-    button.classList.remove(config.inactiveButtonClass);
-  };
-
   if (hasInvalidInput(inputList)) {
     disableSubmitButton(buttonElement, validationData);
   } else {
